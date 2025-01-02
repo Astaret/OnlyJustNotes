@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     id ("com.google.dagger.hilt.android")
+    alias(libs.plugins.compose.compiler)
+
 }
 
 android {
@@ -17,6 +19,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.15"
+    }
+    buildFeatures {
+        compose = true
     }
 
     buildTypes {
@@ -38,9 +46,45 @@ android {
 }
 
 
+
 dependencies {
+    implementation(libs.androidx.ui.tooling.preview.android)
     val room_version = "2.6.1"
     val lifecycle_version = "2.2.0"
+    val composeBom = platform("androidx.compose:compose-bom:2024.12.01")
+
+    implementation("androidx.compose.ui:ui:1.7.6")
+    implementation("androidx.compose.material3:material3")
+    // or Material Design 2
+    implementation("androidx.compose.material:material")
+    // or skip Material Design and build directly on top of foundational components
+    implementation("androidx.compose.foundation:foundation")
+    // or only import the main APIs for the underlying toolkit systems,
+    // such as input and measurement/layout
+    implementation("androidx.compose.ui:ui")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // Optional - Included automatically by material, only add when you need
+    // the icons but not the material library (e.g. when using Material3 or a
+    // custom design system based on Foundation)
+    implementation("androidx.compose.material:material-icons-core")
+    // Optional - Add full set of material icons
+    implementation("androidx.compose.material:material-icons-extended")
+    // Optional - Add window size utils
+    implementation("androidx.compose.material3.adaptive:adaptive")
+
+    // Optional - Integration with activities
+    implementation("androidx.activity:activity-compose:1.9.2")
+    // Optional - Integration with ViewModels
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.5")
+    // Optional - Integration with LiveData
+    implementation("androidx.compose.runtime:runtime-livedata")
+    // Optional - Integration with RxJava
+    implementation("androidx.compose.runtime:runtime-rxjava2")
+
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
 
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
