@@ -53,6 +53,8 @@ dependencies {
     val lifecycle_version = "2.2.0"
     val composeBom = platform("androidx.compose:compose-bom:2024.12.01")
 
+    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
     implementation("androidx.compose.ui:ui:1.7.6")
     implementation("androidx.compose.material3:material3")
     // or Material Design 2
